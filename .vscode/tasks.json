@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Contracts",
+            "type": "shell",
+            "command": "forge build",
+            "options": {
+                "cwd": "${workspaceFolder}/contracts"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Test Contracts",
+            "type": "shell",
+            "command": "forge test",
+            "options": {
+                "cwd": "${workspaceFolder}/contracts"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Frontend",
+            "type": "shell",
+            "command": "npm run dev",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "isBackground": true,
+            "problemMatcher": ["$next-js"]
+        },
+        {
+            "label": "Start Anvil Node",
+            "type": "shell",
+            "command": "anvil",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "server",
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Deploy Contracts (Local)",
+            "type": "shell",
+            "command": "forge script script/DeployLocal.s.sol --rpc-url http://127.0.0.1:8545 --broadcast",
+            "options": {
+                "cwd": "${workspaceFolder}/contracts"
+            },
+            "problemMatcher": [],
+            "dependsOn": ["Start Anvil Node"]
+        },
+        {
+            "label": "Deploy Contracts (Sepolia)",
+            "type": "shell",
+            "command": "forge script script/Deploy.s.sol:DeployScript --rpc-url ${env:SEPOLIA_RPC_URL} --private-key ${env:PRIVATE_KEY} --broadcast",
+            "options": {
+                "cwd": "${workspaceFolder}/contracts"
+            },
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}

@@ -97,9 +97,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Suggestions Board**: `0x8C14e8827ba62aE11F00C54E2Fd13543460E8E85`
 
 ### Deployed Addresses (Local Anvil)
-- **Roulette**: `0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9`
-- **Suggestions**: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
-- **CommunityDAO**: `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`
+- **Roulette**: \`0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9\`
+- **Suggestions**: \`0x5FbDB2315678afecb367f032d93F642f64180aa3\`
+- **CommunityDAO**: \`0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512\`
 
 ### Contracts (Sepolia)
 ```bash
@@ -120,4 +120,3 @@ MIT
 This project is for **educational and portfolio purposes only**. The smart contracts have **NOT** been audited by a professional security firm. 
 
 While extensive testing (unit, integration, and fuzzing) has been performed, using this software on a mainnet environment carries significant risk. The authors accept no liability for any funds lost due to bugs, exploits, or market volatility. Use at your own risk.
-

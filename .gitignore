@@ -1,18 +1,11 @@
-# Compiler files
-cache/
-out/
-
-# Ignores development broadcast logs
-!/broadcast
-/broadcast/*/31337/
-/broadcast/**/dry-run/
-
-# Docs
-docs/
-
-# Dotenv file
+node_modules/
 .env
+.next/
+out/
+playwright-report/
+test-results/
+*.log
+.DS_Store
+contracts/out/
+contracts/cache/
 .env.example
-
-# Copilot Instructions
-copilot-instructions/
