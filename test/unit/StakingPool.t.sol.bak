@@ -1,0 +1,76 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "forge-std/Test.sol";
+import "../../src/StakingPool.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract MockToken is ERC20 {
+    constructor() ERC20("Mock", "MCK") {
+        _mint(msg.sender, 1_000_000 ether);
+    }
+}
+
+contract StakingPoolTest is Test {
+    StakingPool public pool;
+    MockToken public stakedToken;
+    address public user1;
+
+    function setUp() public {
+        stakedToken = new MockToken();
+        // Pass address(0) for NFT for basic tests
+        pool = new StakingPool(address(stakedToken), address(0));
+        user1 = makeAddr("user1");
+
+        // Fund user
+        stakedToken.transfer(user1, 1000 ether);
+    }
+
+    function testStake() public {
+        vm.startPrank(user1);
+        stakedToken.approve(address(pool), 100 ether);
+        pool.stake(100 ether);
+        vm.stopPrank();
+
+        (uint256 amount, uint256 weightedAmount,) = pool.stakes(user1);
+        assertEq(amount, 100 ether);
+        assertEq(weightedAmount, 100 ether); // No NFT, so 1:1
+        assertEq(pool.totalWeightedStaked(), 100 ether);
+    }
+
+    function testUnstake() public {
+        vm.startPrank(user1);
+        stakedToken.approve(address(pool), 100 ether);
+        pool.stake(100 ether);
+
+        pool.unstake(50 ether);
+        vm.stopPrank();
+
+        (uint256 amount,,) = pool.stakes(user1);
+        assertEq(amount, 50 ether);
+        assertEq(stakedToken.balanceOf(user1), 950 ether);
+    }
+
+    function testRewards() public {
+        vm.startPrank(user1);
+        stakedToken.approve(address(pool), 100 ether);
+        pool.stake(100 ether);
+        vm.stopPrank();
+
+        // Simulate Buyback (Send ETH to pool)
+        (bool success,) = address(pool).call{value: 1 ether}("");
+        require(success, "ETH transfer failed");
+
+        // 100 ether staked, 1 ether reward.
+        // pending should be 1 ether (minus dust)
+        uint256 pending = pool.pendingReward(user1);
+        assertApproxEqAbs(pending, 1 ether, 1e14); // Allow small dust
+
+        uint256 balanceBefore = user1.balance;
+
+        vm.prank(user1);
+        pool.claimReward();
+
+        assertApproxEqAbs(user1.balance - balanceBefore, 1 ether, 1e14);
+    }
+}
