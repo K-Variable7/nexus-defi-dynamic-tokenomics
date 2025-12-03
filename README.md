@@ -7,6 +7,8 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC.svg?logo=tailwind-css)
 ![Foundry](https://img.shields.io/badge/Built%20with-Foundry-orange.svg)
 
+**🚀 Live Demo:** [Launch App](https://nexus-defi-dynamic-tokenomics.vercel.app/)
+
 A next-generation DeFi platform featuring a **Glassmorphism UI**, **Pair-Based Prediction Markets**, and a **Gamified Vault System**.
 
 ## ✨ Key Features
