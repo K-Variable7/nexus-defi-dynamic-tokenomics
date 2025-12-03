@@ -12,33 +12,33 @@ contract MockRouter {
 
     function addLiquidityETH(
         address token,
-        uint amountTokenDesired,
-        uint amountTokenMin,
-        uint amountETHMin,
+        uint256 amountTokenDesired,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
         address to,
-        uint deadline
-    ) external payable returns (uint amountToken, uint amountETH, uint liquidity) {
+        uint256 deadline
+    ) external payable returns (uint256 amountToken, uint256 amountETH, uint256 liquidity) {
         return (amountTokenDesired, msg.value, amountTokenDesired);
     }
 
     function swapExactETHForTokensSupportingFeeOnTransferTokens(
-        uint amountOutMin,
+        uint256 amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint256 deadline
     ) external payable {}
 
     function swapExactTokensForETHSupportingFeeOnTransferTokens(
-        uint amountIn,
-        uint amountOutMin,
+        uint256 amountIn,
+        uint256 amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint256 deadline
     ) external {}
 
-    function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts) {
-        amounts = new uint[](path.length);
-        for (uint i = 0; i < path.length; i++) {
+    function getAmountsOut(uint256 amountIn, address[] calldata path) external view returns (uint256[] memory amounts) {
+        amounts = new uint256[](path.length);
+        for (uint256 i = 0; i < path.length; i++) {
             amounts[i] = amountIn;
         }
     }
